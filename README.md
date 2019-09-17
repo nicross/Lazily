@@ -34,7 +34,7 @@ They provide generic solutions for common use cases:
 
 ### Included plugins
 - `LazilyLoaderPlugin` - Lazy loads `<iframe>`, `<img>`, `<picture>`, and `<video>` elements. Prefers the native `loading` attribute in supporting browsers, otherwise it leverages an `IntersectionObserver`.
-- `LazilyRehydratorPlugin` - Interface for executing a handler function whenever a new element matches its selector. Perfect for rehydrating static markup.
+- `LazilyRehydratorPlugin` - Interface for executing a handler function whenever a new element matches its selector. Perfect for rehydrating static markup, from simple enhancements to custom components.
 
 ### Planned plugins
 - `LazilyRevealerPlugin` - Triggers scroll reveal animations. Provides an optional stylesheet for common use cases.
@@ -46,9 +46,9 @@ Plugins should be included directly after the main script.
 - `Lazily.getObserved(handler)` - Returns an array of elements subscribed to `handler`.
 - `Lazily.isSupported()` - Returns whether the minimum requirements are met. If `true`, then the library is running.
 - `Lazily.observe(element, handler)` - Execute `handler` whenever `element` intersects the viewport.
-- `Lazily.onAdd(handler)` - Execute `handler` whenever new elements are added to the document.
-- `Lazily.onRemove(handler)` - Execute `handler` whenever new elements are removed from the document.
-- `Lazily.ready(handler)` - Execute `handler` as soon as the document is ready. Returns a `Promise`.
+- `Lazily.onAdd(handler)` - Execute `handler` whenever new nodes are added to the document.
+- `Lazily.onRemove(handler)` - Execute `handler` whenever new nodes are removed from the document.
+- `Lazily.ready(handler)` - Execute `handler` as soon as the document is ready. Returns a `Promise` if supported.
 - `Lazily.unobserve(element, handler)` - Remove `handler` from the intersection handlers for `element`.
 
 ### LazilyLoaderPlugin API

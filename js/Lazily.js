@@ -24,7 +24,7 @@ const Lazily = (function IIFE(undefined) {
   }
 
   function forEach(arrayLike, callback) {
-    requireValidFunction(callback)
+    requireValidFunction(callback);
     [].slice.call(arrayLike).forEach(callback)
   }
 

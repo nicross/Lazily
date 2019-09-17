@@ -42,7 +42,7 @@ They provide generic solutions for common use cases:
 ### Plugin usage
 Plugins should be included directly after the main script.
 
-## Lazily API
+## API Documentation
 - `Lazily.getObserved(handler)` - Returns an array of elements subscribed to `handler`.
 - `Lazily.isSupported()` - Returns whether the minimum requirements are met. If `true`, then the library is running.
 - `Lazily.observe(element, handler)` - Execute `handler` whenever `element` intersects the viewport.

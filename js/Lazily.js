@@ -18,17 +18,14 @@ const Lazily = (function IIFE(undefined) {
 
   function onMutation(entries) {
     entries.forEach(function (entry) {
-      handleMutationNodes(entry.addedNodes, onAdd)
-      handleMutationNodes(entry.removedNodes, onRemove)
+      forEach(entry.addedNodes, onAdd)
+      forEach(entry.removedNodes, onRemove)
     })
   }
 
-  function handleMutationNodes(nodeList, callback) {
-    [].slice.call(nodeList).forEach(function (node) {
-      if (node instanceof Element) {
-        callback(node)
-      }
-    })
+  function forEach(arrayLike, callback) {
+    requireValidFunction(callback)
+    [].slice.call(arrayLike).forEach(callback)
   }
 
   function onAdd(element) {

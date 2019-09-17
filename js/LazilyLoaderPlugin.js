@@ -25,7 +25,7 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
   }
 
   namespace.onAdd(function (element) {
-    if (element.tagName.toLowerCase() in elements) {
+    if (element instanceof Element && element.tagName.toLowerCase() in elements) {
       initialize(element)
     }
   })

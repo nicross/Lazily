@@ -14,6 +14,13 @@ const Lazily = (function IIFE(undefined) {
     intersectionHandlers = new Map(),
     removeHandlers = []
 
+  if (isSupported) {
+    mutationObserver.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+    })
+  }
+
   function onMutation(entries) {
     entries.forEach(function (entry) {
       forEach(entry.addedNodes, onAdd)
@@ -22,7 +29,6 @@ const Lazily = (function IIFE(undefined) {
   }
 
   function forEach(arrayLike, callback) {
-    requireValidFunction(callback);
     [].slice.call(arrayLike).forEach(callback)
   }
 
@@ -62,13 +68,6 @@ const Lazily = (function IIFE(undefined) {
     }
   }
 
-  if (isSupported) {
-    mutationObserver.observe(document.documentElement, {
-      childList: true,
-      subtree: true,
-    })
-  }
-
   return {
     getObserved: function(handler) {
       const elements = []
@@ -96,8 +95,7 @@ const Lazily = (function IIFE(undefined) {
         intersectionObserver.observe(element)
       }
 
-      const handlers = intersectionHandlers.get(element)
-      handlers.push(handler)
+      intersectionHandlers.get(element).push(handler)
 
       return this
     },

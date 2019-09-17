@@ -119,18 +119,20 @@ const Lazily = (function IIFE(undefined) {
       return this
     },
     unobserve: function (element, handler) {
-      if (intersectionHandlers.has(element)) {
-        const handlers = intersectionHandlers.get(element),
-          index = handlers.indexOf(handler)
+      if (!intersectionHandlers.has(element)) {
+        return this
+      }
 
-        if (index != -1) {
-          handlers.splice(index, 1)
-        }
+      const handlers = intersectionHandlers.get(element),
+        index = handlers.indexOf(handler)
 
-        if (handlers.length == 0) {
-          intersectionHandlers.delete(element)
-          intersectionObserver.unobserve(element)
-        }
+      if (index != -1) {
+        handlers.splice(index, 1)
+      }
+
+      if (handlers.length == 0) {
+        intersectionHandlers.delete(element)
+        intersectionObserver.unobserve(element)
       }
 
       return this

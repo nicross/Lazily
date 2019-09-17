@@ -32,6 +32,12 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
     }
   })
 
+  window.matchMedia('print').addListener(function (event) {
+    if (event.matches) {
+      forceLoad()
+    }
+  })
+
   function initialize(element) {
     if (dataKey in element.dataset) {
       return
@@ -48,18 +54,17 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
 
     const tagName = element.tagName.toLowerCase()
     elements[tagName](element, swapToData)
-
-    namespace.observe(element, onIntersection)
-  }
-
-  function onIntersection(element) {
-    load(element)
-    namespace.unobserve(element)
+    namespace.observe(element, load)
   }
 
   function load(element) {
     const tagName = element.tagName.toLowerCase()
     elements[tagName](element, swapFromData)
+    namespace.unobserve(element, load)
+  }
+
+  function forceLoad() {
+    namespace.getObserved(onIntersection).forEach(load)
   }
 
   function swapFromData(element, keys) {
@@ -79,6 +84,4 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
       }
     })
   }
-
-  // TODO: Force load on print
 })(Lazily)

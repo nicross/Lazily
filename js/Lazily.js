@@ -92,6 +92,7 @@ const Lazily = (function IIFE(undefined) {
 
       if (!intersectionHandlers.has(element)) {
         intersectionHandlers.set(element, [])
+        intersectionObserver.observe(element)
       }
 
       const handlers = intersectionHandlers.get(element)
@@ -124,6 +125,11 @@ const Lazily = (function IIFE(undefined) {
 
         if (index != -1) {
           handlers.splice(index, 1)
+        }
+
+        if (handlers.length == 0) {
+          intersectionHandlers.delete(element)
+          intersectionObserver.unobserve(element)
         }
       }
 

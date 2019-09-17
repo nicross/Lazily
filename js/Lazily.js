@@ -70,6 +70,17 @@ const Lazily = (function IIFE(undefined) {
   }
 
   return {
+    getObserved: function(handler) {
+      const elements = []
+
+      intersectionHandlers.forEach(function (handlers, element) {
+        if (handlers.indexOf(handler) != -1) {
+          elements.push(element)
+        }
+      })
+
+      return elements
+    },
     observe: function (element, handler) {
       if (!(element instanceof Element)) {
         return this

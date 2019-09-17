@@ -1,6 +1,7 @@
 const Lazily = (function IIFE(undefined) {
   const isSupported = 'IntersectionObserver' in window
-    && `MutationObserver` in window
+    && 'MutationObserver' in window
+    && 'Promise' in window
 
   const mutationObserver = isSupported
     ? new MutationObserver(onMutation)
@@ -8,6 +9,13 @@ const Lazily = (function IIFE(undefined) {
 
   const intersectionObserver = isSupported
     ? new IntersectionObserver(onIntersection)
+    : undefined
+
+  const whenReady = isSupported
+    ? new Promise(function (resolve) {
+        document.addEventListener('DOMContentLoaded', resolve)
+        window.addEventListener('load', resolve)
+      })
     : undefined
 
   const addHandlers = [],
@@ -108,6 +116,11 @@ const Lazily = (function IIFE(undefined) {
       requireValidFunction(handler)
       removeElementHandlers.push(handler)
       return this
+    },
+    ready: function () {
+      if (isSupported) {
+        return whenReady.then.apply(whenReady, arguments)
+      }
     },
     unobserve: function (element, handler) {
       if (!intersectionHandlers.has(element)) {

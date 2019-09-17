@@ -10,7 +10,7 @@ Not only is this an improvement for developer experience—on many sites this pr
 
 ## Compatibility
 - Compatible with all evergreen browsers
-- For IE11, please provide polyfills for `IntersectionObserver` and `MutationObserver`
+- For IE11, please provide polyfills for `IntersectionObserver`, `MutationObserver`, and `Promise`
 - Earlier browsers may require transpilation and additional polyfills
 - Plugins may have their own dependencies
 
@@ -48,6 +48,7 @@ Plugins should be included directly after the main script.
 - `Lazily.observe(element, handler)` - Execute `handler` whenever `element` intersects the viewport.
 - `Lazily.onAdd(handler)` - Execute `handler` whenever new elements are added to the document.
 - `Lazily.onRemove(handler)` - Execute `handler` whenever new elements are removed from the document.
+- `Lazily.ready(handler)` - Execute `handler` as soon as the document is ready. Returns a `Promise`.
 - `Lazily.unobserve(element, handler)` - Remove `handler` from the intersection handlers for `element`.
 
 ### LazilyLoaderPlugin API

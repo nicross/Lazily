@@ -2,11 +2,15 @@ const LazilyRehydratorPlugin = (function IIFE(namespace) {
   const dataKey = 'lazilyRehydrator',
     handlers = new Map()
 
-  namespace.onAdd(function (node) {
-    if (node instanceof Element) {
-      rehydrate(node)
-    }
-  }).ready(rehydrateAll)
+  namespace.ready(function () {
+    rehydrateAll()
+
+    namespace.onAdd(function (node) {
+      if (node instanceof Element) {
+        rehydrate(node)
+      }
+    })
+  })
 
   function rehydrate(element) {
     if (dataKey in element.dataset) {
@@ -17,12 +21,12 @@ const LazilyRehydratorPlugin = (function IIFE(namespace) {
 
     if (handler) {
       element.dataset[dataKey] = ''
-      return handler(element)
+      handler(element)
     }
   }
 
   function rehydrateAll() {
-    return rehydrateWithin(document.documentElement)
+    rehydrateWithin(document.documentElement)
   }
 
   function rehydrateWithin(element) {
@@ -36,7 +40,7 @@ const LazilyRehydratorPlugin = (function IIFE(namespace) {
       elements.unshift(element)
     }
 
-    return elements.map(rehydrate)
+    elements.forEach(rehydrate)
   }
 
   function getHandler(element) {

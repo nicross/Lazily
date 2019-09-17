@@ -42,7 +42,7 @@ They provide generic solutions for common use cases:
 ### Plugin usage
 Plugins should be included directly after the main script.
 
-## API Documentation
+## API documentation
 - `Lazily.getObserved(handler)` - Returns an array of elements subscribed to `handler`.
 - `Lazily.isSupported()` - Returns whether the minimum requirements are met. If `true`, then the library is running.
 - `Lazily.observe(element, handler)` - Execute `handler` whenever `element` intersects the viewport.
@@ -51,10 +51,10 @@ Plugins should be included directly after the main script.
 - `Lazily.ready(handler)` - Execute `handler` as soon as the document is ready. Returns a `Promise` if supported.
 - `Lazily.unobserve(element, handler)` - Remove `handler` from the intersection handlers for `element`.
 
-### LazilyLoaderPlugin API
+### LazilyLoaderPlugin
 - `LazilyLoaderPlugin.forceLoad()` - Forces all observed elements to load.
 
-### LazilyRehydratorPlugin API
+### LazilyRehydratorPlugin
 - `LazilyRehydratorPlugin.register(selector, handler)` - Executes `handler` whenever a new element matches `selector`.
 
 ## Getting started

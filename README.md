@@ -34,9 +34,9 @@ They provide generic solutions for common use cases:
 
 ### Included plugins
 - `LazilyLoaderPlugin` - Lazy loads `<iframe>`, `<img>`, `<picture>`, and `<video>` elements. Prefers the native `loading` attribute in supporting browsers, otherwise it leverages an `IntersectionObserver`.
+- `LazilyRehydratorPlugin` - Interface for executing a handler function whenever a new element matches its selector. Perfect for rehydrating static markup.
 
 ### Planned plugins
-- `LazilyRehydratorPlugin` - Interface for rehydrating elements via selector, e.g. as custom elements or components.
 - `LazilyRevealerPlugin` - Triggers scroll reveal animations. Provides an optional stylesheet for common use cases.
 
 ### Plugin usage
@@ -53,6 +53,9 @@ Plugins should be included directly after the main script.
 
 ### LazilyLoaderPlugin API
 - `LazilyLoaderPlugin.forceLoad()` - Forces all observed elements to load.
+
+### LazilyRehydratorPlugin API
+- `LazilyRehydratorPlugin.register(selector, handler)` - Executes `handler` whenever a new element matches `selector`.
 
 ## Getting started
 Contributors should execute `npm install` to continue.

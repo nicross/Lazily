@@ -81,22 +81,13 @@ const Lazily = (function IIFE(undefined) {
   }
 
   return {
-    onMutation: function (handler) {
-      if (typeof handler != 'function') {
-        throw new Error('Please provide a valid handler function')
-      }
-
-      mutationHandlers.push(handler)
-
-      return this
-    },
-    observeIntersection: function (element, handler) {
+    observe: function (element, handler) {
       if (!(element instanceof Element)) {
         return this
       }
 
       if (typeof handler != 'function') {
-        throw new Error('Please provide a valid handler function')
+        throw new Error('Please provide a valid function')
       }
 
       if (!intersectionHandlers.has(element)) {
@@ -108,7 +99,25 @@ const Lazily = (function IIFE(undefined) {
 
       return this
     },
-    unobserveIntersection: function (element, handler) {
+    onAdd: function (handler) {
+      if (typeof handler != 'function') {
+        throw new Error('Please provide a valid function')
+      }
+
+      addHandlers.push(handler)
+
+      return this
+    },
+    onRemove: function (handler) {
+      if (typeof handler != 'function') {
+        throw new Error('Please provide a valid function')
+      }
+
+      removeElementHandlers.push(handler)
+
+      return this
+    },
+    unobserve: function (element, handler) {
       if (intersectionHandlers.has(element)) {
         const handlers = intersectionHandlers.get(element),
           index = handlers.indexOf(handler)

@@ -24,7 +24,7 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
     },
   }
 
-  namespace.onMutation(function (element) {
+  namespace.onAdd(function (element) {
     if (element.tagName.toLowerCase() in elements) {
       initialize(element)
     }
@@ -41,12 +41,12 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
     const tagName = element.tagName.toLowerCase()
     lazyElements[tagName](element, swapToData)
 
-    namespace.observeIntersection(element, onIntersection)
+    namespace.observe(element, onIntersection)
   }
 
   function onIntersection(element) {
     load(element)
-    namespace.unobserveIntersection(element)
+    namespace.unobserve(element)
   }
 
   function load(element) {

@@ -58,7 +58,7 @@ const Lazily = (function IIFE(undefined) {
     })
   }
 
-  function onIntersection(entries, observer) {
+  function onIntersection(entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         const element = entry.target,
@@ -71,6 +71,12 @@ const Lazily = (function IIFE(undefined) {
         }
       }
     })
+  }
+
+  function requireValidFunction(value) {
+    if (typeof value != 'function') {
+      throw new Error('Please provide a valid function')
+    }
   }
 
   if (isSupported) {
@@ -86,9 +92,7 @@ const Lazily = (function IIFE(undefined) {
         return this
       }
 
-      if (typeof handler != 'function') {
-        throw new Error('Please provide a valid function')
-      }
+      requireValidFunction(handler)
 
       if (!intersectionHandlers.has(element)) {
         intersectionHandlers.set(element, [])
@@ -101,21 +105,13 @@ const Lazily = (function IIFE(undefined) {
       return this
     },
     onAdd: function (handler) {
-      if (typeof handler != 'function') {
-        throw new Error('Please provide a valid function')
-      }
-
+      requireValidFunction(handler)
       addHandlers.push(handler)
-
       return this
     },
     onRemove: function (handler) {
-      if (typeof handler != 'function') {
-        throw new Error('Please provide a valid function')
-      }
-
+      requireValidFunction(handler)
       removeElementHandlers.push(handler)
-
       return this
     },
     unobserve: function (element, handler) {

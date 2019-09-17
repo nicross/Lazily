@@ -12,29 +12,48 @@ const Lazily = (function IIFE(undefined) {
     ? new IntersectionObserver(onIntersection)
     : undefined
 
-  const intersectionHandlers = new Map(),
-    mutationHandlers = []
+  const addHandlers = [],
+    intersectionHandlers = new Map(),
+    removeHandlers = []
 
   function onMutation(entries) {
     entries.forEach(function (entry) {
-      [].slice.call(
-        entry.addedNodes
-      ).forEach(function (node) {
-        if (node instanceof Element) {
-          initialize(node)
-        }
-      })
+      handleMutationNodes(entry.addedNodes, onAdd)
+      handleMutationNodes(entry.removedNodes, onRemove)
     })
   }
 
-  function initialize(element) {
-    if (initializedKey in element.dataset) {
+  function handleMutationNodes(nodeList, callback) {
+    [].slice.call(nodeList).forEach(function (node) {
+      if (node instanceof Element) {
+        callback(node)
+      }
+    })
+  }
+
+  function onAdd(element) {
+    if (dataKey in element.dataset) {
       return
     }
 
     element.dataset[dataKey] = ''
 
-    mutationHandlers.forEach(function (handler) {
+    addHandlers.forEach(function (handler) {
+      handler(element)
+    })
+  }
+
+  function onRemove(element) {
+    if (!(dataKey in element.dataset)) {
+      return
+    }
+
+    delete element.dataset[dataKey]
+
+    intersectionHandlers.delete(element)
+    intersectionObserver.unobserve(element)
+
+    removeHandlers.forEach(function (handler) {
       handler(element)
     })
   }

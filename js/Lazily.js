@@ -81,6 +81,9 @@ const Lazily = (function IIFE(undefined) {
 
       return elements
     },
+    isSupported: function () {
+      return isSupported
+    },
     observe: function (element, handler) {
       if (!(element instanceof Element)) {
         return this

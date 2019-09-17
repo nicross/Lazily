@@ -84,4 +84,11 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
       }
     })
   }
+
+  return {
+    forceLoad: function() {
+      forceLoad()
+      return this
+    },
+  }
 })(Lazily)

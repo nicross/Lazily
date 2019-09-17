@@ -1,4 +1,6 @@
 const LazilyLoaderPlugin = (function IIFE(namespace) {
+  const dataKey = 'lazilyLoader'
+
   const elements = {
     iframe: function (element, swap) {
       swap(element, ['src'])
@@ -24,13 +26,19 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
     },
   }
 
-  namespace.onAdd(function (element) {
-    if (element instanceof Element && element.tagName.toLowerCase() in elements) {
-      initialize(element)
+  namespace.onAdd(function (node) {
+    if (node instanceof Element && node.tagName.toLowerCase() in elements) {
+      initialize(node)
     }
   })
 
   function initialize(element) {
+    if (dataKey in element.dataset) {
+      return
+    }
+
+    element.dataset[dataKey] = ''
+
     if ('loading' in element) {
       if (!element.hasAttribute('loading')) {
         element.setAttribute('loading', 'lazy')

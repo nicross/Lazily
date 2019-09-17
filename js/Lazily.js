@@ -1,6 +1,4 @@
 const Lazily = (function IIFE(undefined) {
-  const dataKey = 'lazily'
-
   const isSupported = 'IntersectionObserver' in window
     && `MutationObserver` in window
 
@@ -29,24 +27,12 @@ const Lazily = (function IIFE(undefined) {
   }
 
   function onAdd(element) {
-    if (dataKey in element.dataset) {
-      return
-    }
-
-    element.dataset[dataKey] = ''
-
     addHandlers.forEach(function (handler) {
       handler(element)
     })
   }
 
   function onRemove(element) {
-    if (!(dataKey in element.dataset)) {
-      return
-    }
-
-    delete element.dataset[dataKey]
-
     intersectionHandlers.delete(element)
     intersectionObserver.unobserve(element)
 

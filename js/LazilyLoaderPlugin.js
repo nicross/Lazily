@@ -39,7 +39,7 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
     }
 
     const tagName = element.tagName.toLowerCase()
-    lazyElements[tagName](element, swapToData)
+    elements[tagName](element, swapToData)
 
     namespace.observe(element, onIntersection)
   }
@@ -51,7 +51,7 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
 
   function load(element) {
     const tagName = element.tagName.toLowerCase()
-    lazyElements[tagName](element, swapFromData)
+    elements[tagName](element, swapFromData)
   }
 
   function swapFromData(element, keys) {

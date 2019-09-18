@@ -80,12 +80,10 @@ const LazilyRehydratorPlugin = (function IIFE(namespace) {
   }
 
   function matches(element, selector) {
-    if (element instanceof Element) {
-      const command = element.matches || element.matchesSelector || element.msMatchesSelector
+    const command = element.matches || element.matchesSelector || element.msMatchesSelector
 
-      if (command) {
-        return command.call(element, selector)
-      }
+    if (command) {
+      return command.call(element, selector)
     }
   }
 

@@ -1,5 +1,5 @@
 # Lazily.js
-A lightweight framework for progressively enhancing static markup.
+A lightweight plugin ecosystem for progressively enhancing static markup.
 
 **Lazily** leverages the `MutationObserver` interface to alert plugins of changes to the document.
 Plugins then intercept and mutate these changes before they are committed.

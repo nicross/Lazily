@@ -41,7 +41,7 @@
 
 @media print {
   [data-lazily-revealer="ready"] {
-    animation-fill-mode: none !important;
+    animation-fill-mode: none;
     visibility: visible !important;
   }
 }

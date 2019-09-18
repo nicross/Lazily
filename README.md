@@ -35,9 +35,7 @@ They provide generic solutions for common use cases:
 ### Included plugins
 - `LazilyLoaderPlugin` - Lazy loads `<iframe>`, `<img>`, `<picture>`, and `<video>` elements. Prefers the native `loading` attribute in supporting browsers, otherwise it leverages an `IntersectionObserver`.
 - `LazilyRehydratorPlugin` - Interface for executing a handler function whenever a new element matches its selector. Perfect for rehydrating static markup, from simple enhancements to custom components.
-
-### Planned plugins
-- `LazilyRevealerPlugin` - Triggers scroll reveal animations. Provides an optional stylesheet for common use cases.
+- `LazilyRevealerPlugin` - Triggers scroll reveal animations for elements matching a configurable selector. Provides an optional stylesheet for common use cases.
 
 ### Plugin usage
 Plugins should be included directly after the main script.
@@ -52,10 +50,33 @@ Plugins should be included directly after the main script.
 - `Lazily.unobserve(element, handler)` - Remove `handler` from the intersection handlers for `element`.
 
 ### LazilyLoaderPlugin
-- `LazilyLoaderPlugin.forceLoad()` - Forces all observed elements to load.
+- `LazilyLoaderPlugin.forceLoad()` - Forces all observed elements to load. Automatically called when the document is printed.
 
 ### LazilyRehydratorPlugin
+This plugin will execute as the document loads, as well as when it's ready the first time.
+This allows handlers to be registered by scripts that are deferred or at the end of the page:
+
 - `LazilyRehydratorPlugin.register(selector, handler)` - Executes `handler` whenever a new element matches `selector`.
+
+### LazilyRevealerPlugin
+This plugin uses the custom `data-lazily-revealer` attribute to trigger scroll reveal animations.
+Elements that are `ready` are being observed for intersections.
+They enter the `play` state once they enter the viewport the first time.
+
+By default, this plugin selects elements having the `lazily-revealer` class.
+Other selectors are permitted with the `addSelector()` method.
+
+The optional stylesheet provides a baseline for a scroll reveal animation framework.
+It respects users' `prefers-reduced-motion` preferences by forcing a fade-in animation when it's `reduce`.
+Custom animations can be specified with an attribute selector:
+
+```css
+.foobar[data-lazily-revealer] {
+  animation-name: foobar;
+}
+```
+
+- `LazilyRevealerPlugin.addSelector(selector)` - Triggers reveal animations whenever a new element matches `selector`.
 
 ## Getting started
 Contributors should execute `npm install` to continue.

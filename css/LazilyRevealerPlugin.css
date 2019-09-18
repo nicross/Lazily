@@ -1,0 +1,46 @@
+[data-lazily-revealer],
+[data-lazily-revealer]::after,
+[data-lazily-revealer]::before {
+  animation-delay: 0s;
+  animation-direction: normal;
+  animation-duration: 1s;
+  animation-fill-mode: backwards;
+  animation-iteration-count: 1;
+  animation-play-state: paused !important;
+  animation-timing-function: ease;
+}
+
+[data-lazily-revealer] {
+  animation-name: lazily-revealer;
+}
+
+[data-lazily-revealer="ready"] {
+  visibility: hidden !important;
+}
+
+[data-lazily-revealer="play"],
+[data-lazily-revealer="play"]::after,
+[data-lazily-revealer="play"]::before {
+  animation-play-state: running !important;
+}
+
+@keyframes lazily-revealer {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-lazily-revealer] {
+    animation-name: lazily-revealer !important;
+  }
+}
+
+@media print {
+  [data-lazily-revealer="ready"] {
+    visibility: visible !important;
+  }
+}

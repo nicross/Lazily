@@ -67,7 +67,7 @@ By default, this plugin selects elements having the `lazily-revealer` class.
 Other selectors are permitted with the `addSelector()` method.
 
 The optional stylesheet provides a baseline for a scroll reveal animation framework.
-It respects users' `prefers-reduced-motion` preferences by forcing a fade-in animation when it's `reduce`.
+A fade-in animation is forced when users' `prefers-reduced-motion` is `reduce`.
 Custom animations can be specified with an attribute selector:
 
 ```css

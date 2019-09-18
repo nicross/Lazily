@@ -33,14 +33,17 @@ Plugins are optional modules that leverage the Lazily API.
 They provide generic solutions for common use cases:
 
 ### Included plugins
-- `LazilyLoaderPlugin` - Lazy loads `<iframe>`, `<img>`, `<picture>`, and `<video>` elements. Prefers the native `loading` attribute in supporting browsers, otherwise it leverages an `IntersectionObserver`.
+- `LazilyLoaderPlugin` - Lazy loads supported elements. Prefers the native `loading` attribute in supporting browsers, otherwise it leverages an `IntersectionObserver`.
 - `LazilyRehydratorPlugin` - Interface for executing a handler function whenever a new element matches its selector. Perfect for rehydrating static markup, from simple enhancements to custom components.
 - `LazilyRevealerPlugin` - Triggers scroll reveal animations for elements matching a configurable selector. Provides an optional stylesheet for common use cases.
 
 ### Plugin usage
-Plugins should be included directly after the main script.
+Plugins should be included directly after the main `<script>` element.
 
 ## API documentation
+The library performs no mutations on its own.
+Plugins leverage its API to progressively enhance the document:
+
 - `Lazily.getObserved(handler)` - Returns an array of elements subscribed to `handler`.
 - `Lazily.isSupported()` - Returns whether the minimum requirements are met. If `true`, then the library is running.
 - `Lazily.observe(element, handler)` - Execute `handler` whenever `element` intersects the viewport.
@@ -50,11 +53,13 @@ Plugins should be included directly after the main script.
 - `Lazily.unobserve(element, handler)` - Remove `handler` from the intersection handlers for `element`.
 
 ### LazilyLoaderPlugin
-- `LazilyLoaderPlugin.forceLoad()` - Forces all observed elements to load. Automatically called when the document is printed.
+This plugin automatically lazy loads `<iframe>`, `<img>`, `<picture>`, and `<video>` elements without markup changes:
+
+- `LazilyLoaderPlugin.forceLoad()` - Forces all observed elements to load. This method is automatically called when the document is printed.
 
 ### LazilyRehydratorPlugin
 This plugin will execute as the document loads, as well as when it's ready the first time.
-This allows handlers to be registered by scripts that are deferred or at the end of the page:
+This allows handlers to be registered by scripts that are deferred or at the end of the document:
 
 - `LazilyRehydratorPlugin.register(selector, handler)` - Executes `handler` whenever a new element matches `selector`.
 
@@ -65,6 +70,7 @@ They enter the `play` state once they enter the viewport the first time.
 
 By default, this plugin selects elements having the `lazily-revealer` class.
 Other selectors are permitted with the `addSelector()` method.
+For best results, selectors should be added following the `<script>` within the document `<head>`.
 
 The optional stylesheet provides a baseline for a scroll reveal animation framework.
 A fade-in animation is forced when users' `prefers-reduced-motion` is `reduce`.

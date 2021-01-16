@@ -1,6 +1,4 @@
-[data-lazily-revealer],
-[data-lazily-revealer]::after,
-[data-lazily-revealer]::before {
+[data-lazily-revealer] {
   animation-delay: 0s;
   animation-direction: normal;
   animation-duration: 1s;
@@ -18,9 +16,7 @@
   visibility: hidden !important;
 }
 
-[data-lazily-revealer="play"],
-[data-lazily-revealer="play"]::after,
-[data-lazily-revealer="play"]::before {
+[data-lazily-revealer="play"] {
   animation-play-state: running !important;
 }
 
@@ -40,9 +36,11 @@
 }
 
 @media print {
-  [data-lazily-revealer="ready"] {
+  [data-lazily-revealer] {
     animation-fill-mode: none !important;
     animation-name: none !important;
+  }
+  [data-lazily-revealer="ready"] {
     visibility: visible !important;
   }
 }

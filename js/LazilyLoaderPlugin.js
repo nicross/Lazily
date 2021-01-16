@@ -64,7 +64,7 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
   }
 
   function forceLoad() {
-    namespace.getObserved(onIntersection).forEach(load)
+    namespace.getObserved(load).forEach(load)
   }
 
   function swapFromData(element, keys) {

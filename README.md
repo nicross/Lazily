@@ -88,4 +88,4 @@ Custom animations can be specified with an attribute selector:
 Contributors should execute `npm install` to continue.
 
 ### Building distributables
-Execute `npx gulp dist` to build distributables for all source files.
+Execute `gulp dist` to build distributables for all source files.

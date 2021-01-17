@@ -47,8 +47,10 @@ const Lazily = (function IIFE(undefined) {
   }
 
   function onRemove(element) {
-    intersectionHandlers.delete(element)
-    intersectionObserver.unobserve(element)
+    if (element instanceof Element) {
+      intersectionHandlers.delete(element)
+      intersectionObserver.unobserve(element)
+    }
 
     removeHandlers.forEach(function (handler) {
       handler(element)

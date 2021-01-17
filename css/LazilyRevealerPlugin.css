@@ -4,12 +4,9 @@
   animation-duration: 1s;
   animation-fill-mode: backwards;
   animation-iteration-count: 1;
+  animation-name: lazily-revealer;
   animation-play-state: paused !important;
   animation-timing-function: ease;
-}
-
-[data-lazily-revealer] {
-  animation-name: lazily-revealer;
 }
 
 [data-lazily-revealer="ready"] {

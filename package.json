@@ -1,6 +1,6 @@
 {
   "name": "Lazily",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",

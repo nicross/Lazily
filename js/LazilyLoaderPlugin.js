@@ -52,7 +52,7 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
     if ('loading' in element) {
       if (!element.hasAttribute('loading')) {
         element.setAttribute('loading', 'lazy')
-        handler(element, swapFromData)
+        setTimeout(function () {handler(element, swapFromData)})
       }
       return
     }

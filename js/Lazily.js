@@ -80,6 +80,10 @@ const Lazily = (function IIFE(undefined) {
 
   return {
     getObserved: function(handler) {
+      if (!isSupported) {
+        return []
+      }
+
       const elements = []
 
       intersectionHandlers.forEach(function (handlers, element) {
@@ -94,7 +98,7 @@ const Lazily = (function IIFE(undefined) {
       return isSupported
     },
     observe: function (element, handler) {
-      if (!(element instanceof Element)) {
+      if (!isSupported || !(element instanceof Element)) {
         return this
       }
 
@@ -110,13 +114,23 @@ const Lazily = (function IIFE(undefined) {
       return this
     },
     onAdd: function (handler) {
+      if (!isSupported) {
+        return this
+      }
+
       requireValidFunction(handler)
       addHandlers.push(handler)
+
       return this
     },
     onRemove: function (handler) {
+      if (!isSupported) {
+        return this
+      }
+
       requireValidFunction(handler)
       removeElementHandlers.push(handler)
+
       return this
     },
     ready: function () {
@@ -125,7 +139,7 @@ const Lazily = (function IIFE(undefined) {
       }
     },
     unobserve: function (element, handler) {
-      if (!intersectionHandlers.has(element)) {
+      if (!isSupported || !intersectionHandlers.has(element)) {
         return this
       }
 

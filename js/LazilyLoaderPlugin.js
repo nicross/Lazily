@@ -43,17 +43,20 @@ const LazilyLoaderPlugin = (function IIFE(namespace) {
       return
     }
 
+    const tagName = element.tagName.toLowerCase()
+    const handler = elements[tagName]
+
     element.dataset[dataKey] = ''
+    handler(element, swapToData)
 
     if ('loading' in element) {
       if (!element.hasAttribute('loading')) {
         element.setAttribute('loading', 'lazy')
+        handler(element, swapFromData)
       }
       return
     }
 
-    const tagName = element.tagName.toLowerCase()
-    elements[tagName](element, swapToData)
     namespace.observe(element, load)
   }
 
